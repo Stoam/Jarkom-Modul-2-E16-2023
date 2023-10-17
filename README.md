@@ -17,15 +17,6 @@
   - [Configuration](#configuration)
   - [Directory List](#directory-list)
     - [Hasil](#hasil)
-  - [Soal 18](#soal-18)
-    - [Solusi](#solusi)
-    - [Hasil](#hasil-1)
-  - [Soal 19](#soal-19)
-    - [Solusi](#solusi-1)
-    - [Hasil](#hasil-2)
-  - [Soal 20](#soal-20)
-    - [Solusi](#solusi-2)
-    - [Hasil](#hasil-3)
 
 ## Topologi
 
@@ -332,7 +323,7 @@ Buat topologi seperti pada [Topologi](#topologi), kemudian edit configuration se
 
 Semua solusi pada soal ini dilakukan pada node Yudhistira.
 
-edit /etc/bind/named.conf.local menjadi seperti ini:
+edit /etc/bind/named.conf.local menjadi seperti berikut:
 ```
 zone "arjuna.E16.com" {
         type master;
@@ -373,7 +364,7 @@ jangan lupa untuk menjalankan `service bind restart`.
 
 Semua solusi pada soal ini dilakukan pada node Yudhistira.
 
-edit /etc/bind/named.conf.local menjadi seperti ini:
+edit /etc/bind/named.conf.local menjadi seperti berikut:
 ```
 zone "arjuna.E16.com" {
         type master;
@@ -419,7 +410,7 @@ jangan lupa untuk menjalankan `service bind restart`.
 
 Semua solusi pada soal ini dilakukan pada node Yudhistira.
 
-edit file /etc/bind/abimanyu/abimanyu.E16.com menjadi seperti ini:
+edit file /etc/bind/abimanyu/abimanyu.E16.com menjadi seperti berikut:
 ```
 ;
 ; BIND data file for local loopback interface
@@ -454,7 +445,7 @@ jangan lupa untuk menjalankan `service bind restart`.
 
 Semua solusi pada soal ini dilakukan pada node Yudhistira.
 
-edit /etc/bind/named.conf.local menjadi seperti ini:
+edit /etc/bind/named.conf.local menjadi seperti berikut:
 ```
 zone "arjuna.E16.com" {
         type master;
@@ -472,7 +463,7 @@ zone "3.214.192.in-addr.arpa" {
 };
 ```
 
-buat file 3.214.192.in-addr.arpa di dalam folder /etc/bind/abimanyu yang berisi seperti ini:
+buat file 3.214.192.in-addr.arpa di dalam folder /etc/bind/abimanyu yang berisi seperti berikut:
 ```
 ;
 ; BIND data file for local loopback interface
@@ -499,7 +490,7 @@ jangan lupa untuk menjalankan `service bind restart`.
 
 ### Solusi
 
-Pada node Yudhistira, edit /etc/bind/named.conf.local menjadi seperti ini:
+Pada node Yudhistira, edit /etc/bind/named.conf.local menjadi seperti berikut:
 ```
 zone "arjuna.E16.com" {
         type master;
@@ -523,7 +514,7 @@ zone "3.214.192.in-addr.arpa" {
 };
 ```
 
-Pada node Werkudara, edit /etc/bind/named.conf.local menjadi seperti ini:
+Pada node Werkudara, edit /etc/bind/named.conf.local menjadi seperti berikut:
 
 ```
 zone "arjuna.E16.com" {
@@ -553,7 +544,7 @@ Jalankan `service bind9 restart` pada Werkudara, kemudian jalankan `servie bind9
 
 ### Solusi
 
-Pada node Yudhistira, edit /etc/bind/abimanyu/abimanyu.E16.com menjadi seperti ini:
+Pada node Yudhistira, edit /etc/bind/abimanyu/abimanyu.E16.com menjadi seperti berikut:
 ```
 ;
 ; BIND data file for local loopback interface
@@ -576,7 +567,7 @@ baratayuda      IN      NS      ns1
 @               IN      AAAA    ::1
 ```
 
-edit juga /etc/bind/named.conf.options menjadi seperti ini:
+edit juga /etc/bind/named.conf.options menjadi seperti berikut:
 ```
 options {
         directory "/var/cache/bind";
@@ -586,7 +577,7 @@ options {
 };
 ```
 
-Pada node Werkudara, edit /etc/bind/named.conf.local menjadi seperti ini:
+Pada node Werkudara, edit /etc/bind/named.conf.local menjadi seperti berikut:
 ```
 zone "arjuna.E16.com" {
     type slave;
@@ -606,7 +597,7 @@ zone "baratayuda.abimanyu.E16.com" {
 };
 ```
 
-edit juga /etc/bind/named.conf.options menjadi seperti ini:
+edit juga /etc/bind/named.conf.options menjadi seperti berikut:
 ```
 options {
         directory "/var/cache/bind";
@@ -647,7 +638,7 @@ jalankan `service bind9 restart` pada Yudhistira dan Werkudara.
 
 ### Solusi
 
-Pada node Werkudara, edit file /etc/bind/baratayuda.abimanyu.E16.com menjadi seperti ini:
+Pada node Werkudara, edit file /etc/bind/baratayuda.abimanyu.E16.com menjadi seperti berikut:
 ```
 ;
 ; BIND data file for local loopback interface
@@ -680,7 +671,7 @@ jalankan `service bind9 restart`.
 
 ### Solusi
 
-Pada node Arjuna, hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti ini:
+Pada node Arjuna, hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti berikut:
 ```
     # Default menggunakan Round Robin
     upstream myweb  {
@@ -701,7 +692,7 @@ Pada node Arjuna, hapus file /etc/nginx/sites-available/default, kemudian buat f
 
 jalankan symlink dengan command `ln -s /etc/nginx/sites-available/arjuna /etc/nginx/sites-enabled`, kemudian restart nginx dengan command `service nginx restart`.
 
-Pada setiap web server (Abimanyu, Prabukusuma, dan Wisanggeni), hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti ini:
+Pada setiap web server (Abimanyu, Prabukusuma, dan Wisanggeni), hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti berikut:
 ```
 server {
 
@@ -746,7 +737,7 @@ Pada setiap web server, buat folder /var/www/arjuna yang nantinya akan digunakan
 
 ### Solusi
 
-Pada node Arjuna, edit file /etc/nginx/sites-available/arjuna menjadi seperti ini:
+Pada node Arjuna, edit file /etc/nginx/sites-available/arjuna menjadi seperti berikut:
 ```
     # Default menggunakan Round Robin
     upstream myweb  {
@@ -767,7 +758,7 @@ Pada node Arjuna, edit file /etc/nginx/sites-available/arjuna menjadi seperti in
 
 Jalankan `service nginx restart`.
 
-Pada setiap web server, edit file /etc/nginx/sites-available/arjuna menjadi seperti ini:
+Pada setiap web server, edit file /etc/nginx/sites-available/arjuna menjadi seperti berikut:
 ```
 server {
 
@@ -850,7 +841,7 @@ Jalankan `lynx abimanyu.E16.com` pada client.
 
 ### Solusi
 
-Pada node Abimanyu, edit file /etc/apache2/sites-available/abimanyu.E16.com.conf menjadi seperti ini:
+Pada node Abimanyu, edit file /etc/apache2/sites-available/abimanyu.E16.com.conf menjadi seperti berikut:
 ```
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -904,13 +895,17 @@ Download [file zip berikut](https://drive.google.com/file/d/1LdbYntiYVF_NVNgJis1
 
 ### Hasil
 
+Jalankan `lynx parikesit.abimanyu.E16.com` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/9e9492c5-0672-450f-83a5-7e0ae416a9b9)
+
 ## Soal 14
 
 > Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
 
 ### Solusi
 
-Pada node Abimanyu, buat folder secret pada direktori /var/www/parikesit.abimanyu.E16. Kemudian edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+Pada node Abimanyu, buat folder secret pada direktori /var/www/parikesit.abimanyu.E16. Kemudian edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti berikut:
 ```
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -952,7 +947,7 @@ Jalankan `lynx parikesit.abimanyu.E16.com/secret` pada client.
 
 ### Solusi
 
-Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti berikut:
 ```
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -993,7 +988,7 @@ Jalankan `lynx parikesit.abimanyu.E16.com/secret` pada client.
 
 ### Solusi
 
-Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti berikut:
 ```
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
@@ -1035,26 +1030,45 @@ Jalankan `lynx parikesit.abimanyu.E16.com/js` pada client.
 
 ### Solusi
 
-Pada node Abimanyu, buat file abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
+Pada node Abimanyu, buat file rjp.baratayuda.abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
 ```
-<VirtualHost *:80>
+<VirtualHost *:14000 *:14400>
         ServerAdmin webmaster@localhost
-        DocumentRoot /var/www/abimanyu.E16
-        ServerName abimanyu.E16.com
-        ServerAlias www.abimanyu.E16.com
+        DocumentRoot /var/www/rjp.baratayuda.abimanyu.E16
+        ServerName rjp.baratayuda.abimanyu.E16.com
+        ServerAlias www.rjp.baratayuda.abimanyu.E16.com
 
         ErrorLog ${APACHE_LOG_DIR}/error.log
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 ```
 
-buat folder /var/www/abimanyu.E16 yang nantinya akan digunakan untuk menampilkan halaman website.
+edit file /etc/apache2/ports.conf menjadi seperti berikut:
+```
+Listen 80
+Listen 14000
+Listen 14400
 
-jalankan `a2ensite abimanyu.E16.com` untuk meng-enable konfigurasi website abimanyu, serta restart apache dengan command `service apache2 restart`.
+<IfModule ssl_module>
+        Listen 443
+</IfModule>
 
-Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc/view) dan lakukan unzip, kemudian pindahkan semua file di dalam abimanyu.yyy.com ke direktori /var/www/abimanyu.E16.
+<IfModule mod_gnutls.c>
+        Listen 443
+</IfModule>
+```
+
+buat folder /var/www/rjp.baratayuda.abimanyu.E16 yang nantinya akan digunakan untuk menampilkan halaman website.
+
+jalankan `a2ensite rjp.baratayuda.abimanyu.E16.com` untuk meng-enable konfigurasi website rjp, serta restart apache dengan command `service apache2 restart`.
+
+Download [file zip berikut](https://drive.google.com/file/d/1pPSP7yIR05JhSFG67RVzgkb-VcW9vQO6/view) dan lakukan unzip, kemudian pindahkan semua file di dalam rjp.baratayuda.abimanyu.yyy.com ke direktori /var/www/rjp.baratayuda.abimanyu.E16.
 
 ### Hasil
+
+Jalankan `lynx rjp.baratayuda.abimanyu.E16.com:14000` atau `lynx rjp.baratayuda.abimanyu.E16.com:14400` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/0698451e-2837-49ba-8c0a-70b83e219df2)
 
 ## Soal 18
 
@@ -1062,7 +1076,39 @@ Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9
 
 ### Solusi
 
+Pada node Abimanyu, buat file rjp.baratayuda.abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
+```
+<VirtualHost *:14000 *:14400>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/rjp.baratayuda.abimanyu.E16
+        ServerName rjp.baratayuda.abimanyu.E16.com
+        ServerAlias www.rjp.baratayuda.abimanyu.E16.com
+
+        <Directory /var/www/rjp.baratayuda.abimanyu.E16>
+                AuthType Basic
+                AuthName "Restricted Content"
+                AuthUserFile /etc/apache2/.htpasswd
+                Require valid-user
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+Jalankan `htpasswd -c -b /etc/apache2/.htpasswd Wayang baratayudaE16` untuk membuat Username "Wayang" dengan password "baratayudaE16".
+
+Restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx rjp.baratayuda.abimanyu.E16.com:14000` atau `lynx rjp.baratayuda.abimanyu.E16.com:14400` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/60a20351-2755-4b49-a74c-f5a898b70ae0)
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/5df4a7ee-9ba4-480d-a99e-98f8d07fb453)
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/0698451e-2837-49ba-8c0a-70b83e219df2)
 
 ## Soal 19
 
@@ -1070,7 +1116,27 @@ Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9
 
 ### Solusi
 
+Pada node Abimanyu, edit file /etc/apache2/sites-available/000-default.conf menjadi seperti berikut:
+
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@abimanyu.E16.com
+        DocumentRoot /var/www/html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+        Redirect / http://www.abimanyu.E16.com/
+</VirtualHost>
+```
+
+Restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx 192.214.3.4` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/fe31c4c6-faa8-4faf-8d8c-eb2cd1807a27)
 
 ## Soal 20
 
@@ -1078,4 +1144,53 @@ Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9
 
 ### Solusi
 
+Pada node Abimanyu, buat file .htaccess di direktori /var/www/parikesit.abimanyu.E16.com yang berisi:
+```
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/public/images/(.*)abimanyu(.*)
+RewriteCond %{REQUEST_URI} !/public/images/abimanyu.png
+RewriteRule abimanyu http://parikesit.abimanyu.E16.com/public/images/abimanyu.png$1 [L,R=301]
+```
+
+edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti berikut:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E16
+        ServerName parikesit.abimanyu.E16.com
+        ServerAlias www.parikesit.abimanyu.E16.com
+
+        <Directory /var/www/parikesit.abimanyu.E16/public>
+                Options +Indexes
+        </Directory>
+
+        <Directory /var/www/parikesit.abimanyu.E16/secret>
+                Options -Indexes
+        </Directory>
+
+        <Directory /var/www/parikesit.abimanyu.E16>
+                Options +FollowSymLinks -Multiviews
+                AllowOverride All
+        </Directory>
+
+        Alias "/public" "/var/www/parikesit.abimanyu.E16/public"
+        Alias "/secret" "/var/www/parikesit.abimanyu.E16/secret"
+        Alias "/js" "/var/www/parikesit.abimanyu.E16/public/js"
+
+        ErrorDocument 404 /error/404.html
+        ErrorDocument 403 /error/403.html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+Aktifkan module rewrite dengan command `a2enmod rewrite`, kemudian restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx parikesit.abimanyu.E16.com/public` > buka folder images/ > buka salah satu file yang memiliki kata abimanyu.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/8eddbcbd-53bf-4e6a-b762-5954708af5ad)
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/ec023281-f9c7-4ffe-8b5e-165d869d1add)
