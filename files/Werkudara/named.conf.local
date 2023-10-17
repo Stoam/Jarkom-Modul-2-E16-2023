@@ -1,0 +1,24 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+zone "arjuna.E16.com" {
+    type slave;
+    masters { 192.214.1.2; };   // IP Yudhistira
+    file "/var/lib/bind/arjuna.E16.com";
+};
+
+zone "abimanyu.E16.com" {
+    type slave;
+    masters { 192.214.1.2; };   // IP Yudhistira
+    file "/var/lib/bind/abimanyu.E16.com";
+};
+
+zone "baratayuda.abimanyu.E16.com" {
+    type master;
+    file "/etc/bind/baratayuda/baratayuda.abimanyu.E16.com";
+};

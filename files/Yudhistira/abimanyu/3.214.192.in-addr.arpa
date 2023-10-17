@@ -1,0 +1,13 @@
+;
+; BIND data file for local loopback interface
+;
+$TTL    604800
+@       IN      SOA     abimanyu.E16.com. root.abimanyu.E16.com. (
+                     2023101201         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+3.214.192.in-addr.arpa  IN      NS      abimanyu.E16.com.
+4                       IN      PTR     abimanyu.E16.com.
