@@ -16,39 +16,16 @@
   - [Topologi](#topologi)
   - [Configuration](#configuration)
   - [Directory List](#directory-list)
-- [Default menggunakan Round Robin](#default-menggunakan-round-robin)
-- [Default menggunakan Round Robin](#default-menggunakan-round-robin-1)
     - [Hasil](#hasil)
-  - [Soal 11](#soal-11)
+  - [Soal 18](#soal-18)
     - [Solusi](#solusi)
     - [Hasil](#hasil-1)
-  - [Soal 12](#soal-12)
+  - [Soal 19](#soal-19)
     - [Solusi](#solusi-1)
     - [Hasil](#hasil-2)
-  - [Soal 13](#soal-13)
+  - [Soal 20](#soal-20)
     - [Solusi](#solusi-2)
     - [Hasil](#hasil-3)
-  - [Soal 14](#soal-14)
-    - [Solusi](#solusi-3)
-    - [Hasil](#hasil-4)
-  - [Soal 15](#soal-15)
-    - [Solusi](#solusi-4)
-    - [Hasil](#hasil-5)
-  - [Soal 16](#soal-16)
-    - [Solusi](#solusi-5)
-    - [Hasil](#hasil-6)
-  - [Soal 17](#soal-17)
-    - [Solusi](#solusi-6)
-    - [Hasil](#hasil-7)
-  - [Soal 18](#soal-18)
-    - [Solusi](#solusi-7)
-    - [Hasil](#hasil-8)
-  - [Soal 19](#soal-19)
-    - [Solusi](#solusi-8)
-    - [Hasil](#hasil-9)
-  - [Soal 20](#soal-20)
-    - [Solusi](#solusi-9)
-    - [Hasil](#hasil-10)
 
 ## Topologi
 
@@ -705,21 +682,21 @@ jalankan `service bind9 restart`.
 
 Pada node Arjuna, hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti ini:
 ```
-# Default menggunakan Round Robin
-upstream myweb  {
-        server 192.214.3.4; # IP Abimanyu
-        server 192.214.3.5; # IP Prabukusuma
-        server 192.214.3.6; # IP Wisanggeni
-}
+    # Default menggunakan Round Robin
+    upstream myweb  {
+            server 192.214.3.4; # IP Abimanyu
+            server 192.214.3.5; # IP Prabukusuma
+            server 192.214.3.6; # IP Wisanggeni
+    }
 
-server {
-        listen 80;
-        server_name arjuna.E16.com;
+    server {
+            listen 80;
+            server_name arjuna.E16.com;
 
-        location / {
-        proxy_pass http://myweb;
-        }
-}
+            location / {
+            proxy_pass http://myweb;
+            }
+    }
 ```
 
 jalankan symlink dengan command `ln -s /etc/nginx/sites-available/arjuna /etc/nginx/sites-enabled`, kemudian restart nginx dengan command `service nginx restart`.
@@ -771,21 +748,21 @@ Pada setiap web server, buat folder /var/www/arjuna yang nantinya akan digunakan
 
 Pada node Arjuna, edit file /etc/nginx/sites-available/arjuna menjadi seperti ini:
 ```
-# Default menggunakan Round Robin
-upstream myweb  {
-        server 192.214.3.4:8002; # IP Abimanyu
-        server 192.214.3.5:8001; # IP Prabukusuma
-        server 192.214.3.6:8003; # IP Wisanggeni
-}
+    # Default menggunakan Round Robin
+    upstream myweb  {
+            server 192.214.3.4:8002; # IP Abimanyu
+            server 192.214.3.5:8001; # IP Prabukusuma
+            server 192.214.3.6:8003; # IP Wisanggeni
+    }
 
-server {
-        listen 80;
-        server_name arjuna.E16.com;
+    server {
+            listen 80;
+            server_name arjuna.E16.com;
 
-        location / {
-        proxy_pass http://myweb;
-        }
-}
+            location / {
+            proxy_pass http://myweb;
+            }
+    }
 ```
 
 Jalankan `service nginx restart`.
@@ -824,7 +801,7 @@ Ganti 800X menjadi 8002 (Abimanyu), 8001 (Prabukusuma), dan 8003 (Wisanggeni).
 
 Jalankan `service nginx restart` dan `service php7.0-fpm restart`.
 
-Download [file zip berikut](https://drive.google.com/file/d/17tAM_XDKYWDvF-JJix1x7txvTBEax7vX/view) dan lakukan unzip, kemudian pindahkan semua isi file arjuna.yyy.com ke dalam /var/www/arjuna.
+Download [file zip berikut](https://drive.google.com/file/d/17tAM_XDKYWDvF-JJix1x7txvTBEax7vX/view) dan lakukan unzip, kemudian pindahkan semua file di dalam arjuna.yyy.com ke direktori /var/www/arjuna.
 
 ### Hasil
 
@@ -842,7 +819,30 @@ Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali 
 
 ### Solusi
 
+Pada node Abimanyu, buat file abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.E16
+        ServerName abimanyu.E16.com
+        ServerAlias www.abimanyu.E16.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+buat folder /var/www/abimanyu.E16 yang nantinya akan digunakan untuk menampilkan halaman website.
+
+jalankan `a2ensite abimanyu.E16.com` untuk meng-enable konfigurasi website abimanyu, serta restart apache dengan command `service apache2 restart`.
+
+Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc/view) dan lakukan unzip, kemudian pindahkan semua file di dalam abimanyu.yyy.com ke direktori /var/www/abimanyu.E16.
+
 ### Hasil
+
+Jalankan `lynx abimanyu.E16.com` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/fe31c4c6-faa8-4faf-8d8c-eb2cd1807a27)
 
 ## Soal 12
 
@@ -850,13 +850,57 @@ Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali 
 
 ### Solusi
 
+Pada node Abimanyu, edit file /etc/apache2/sites-available/abimanyu.E16.com.conf menjadi seperti ini:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.E16
+        ServerName abimanyu.E16.com
+        ServerAlias www.abimanyu.E16.com
+
+        <Directory /var/www/abimanyu.E16/index.php/home>
+                Options +Indexes
+        </Directory>
+
+        Alias "/home" "/var/www/abimanyu.E16/index.php/home"        
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx abimanyu.E16.com/home` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/fe31c4c6-faa8-4faf-8d8c-eb2cd1807a27)
 
 ## Soal 13
 
 > Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
 
 ### Solusi
+
+Pada node Abimanyu, buat file parikesit.abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E16
+        ServerName parikesit.abimanyu.E16.com
+        ServerAlias www.parikesit.abimanyu.E16.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+buat folder /var/www/parikesit.abimanyu.E16 yang nantinya akan digunakan untuk menampilkan halaman website.
+
+jalankan `a2ensite parikesit.abimanyu.E16.com` untuk meng-enable konfigurasi website parikesit, serta restart apache dengan command `service apache2 restart`.
+
+Download [file zip berikut](https://drive.google.com/file/d/1LdbYntiYVF_NVNgJis1GLCLPEGyIOreS/view) dan lakukan unzip, kemudian pindahkan semua file di dalam parikesit.abimanyu.yyy.com ke direktori /var/www/parikesit.abimanyu.E16.
 
 ### Hasil
 
@@ -866,7 +910,41 @@ Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali 
 
 ### Solusi
 
+Pada node Abimanyu, buat folder secret pada direktori /var/www/parikesit.abimanyu.E16. Kemudian edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E16
+        ServerName parikesit.abimanyu.E16.com
+        ServerAlias www.parikesit.abimanyu.E16.com
+
+        <Directory /var/www/parikesit.abimanyu.E16/public>
+                Options +Indexes
+        </Directory>
+
+        <Directory /var/www/parikesit.abimanyu.E16/secret>
+                Options -Indexes
+        </Directory>
+
+        Alias "/public" "/var/www/parikesit.abimanyu.E16/public"
+        Alias "/secret" "/var/www/parikesit.abimanyu.E16/secret"
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx parikesit.abimanyu.E16.com/public` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/11c94a3b-6e66-4e50-952d-9046db7e8754)
+
+Jalankan `lynx parikesit.abimanyu.E16.com/secret` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/43b6b2ce-edc0-4096-a3ff-4aa72e3369c6)
 
 ## Soal 15
 
@@ -874,7 +952,40 @@ Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali 
 
 ### Solusi
 
+Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E16
+        ServerName parikesit.abimanyu.E16.com
+        ServerAlias www.parikesit.abimanyu.E16.com
+
+        <Directory /var/www/parikesit.abimanyu.E16/public>
+                Options +Indexes
+        </Directory>
+
+        <Directory /var/www/parikesit.abimanyu.E16/secret>
+                Options -Indexes
+        </Directory>
+
+        Alias "/public" "/var/www/parikesit.abimanyu.E16/public"
+        Alias "/secret" "/var/www/parikesit.abimanyu.E16/secret"
+
+        ErrorDocument 404 /error/404.html
+        ErrorDocument 403 /error/403.html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx parikesit.abimanyu.E16.com/secret` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/42ed9c2c-fbae-4039-bcda-23fb5f786b35)
 
 ## Soal 16
 
@@ -882,13 +993,66 @@ Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali 
 
 ### Solusi
 
+Pada node Abimanyu, edit file /etc/apache2/sites-available/parikesit.abimanyu.E16.com.conf menjadi seperti ini:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/parikesit.abimanyu.E16
+        ServerName parikesit.abimanyu.E16.com
+        ServerAlias www.parikesit.abimanyu.E16.com
+
+        <Directory /var/www/parikesit.abimanyu.E16/public>
+                Options +Indexes
+        </Directory>
+
+        <Directory /var/www/parikesit.abimanyu.E16/secret>
+                Options -Indexes
+        </Directory>
+
+        Alias "/public" "/var/www/parikesit.abimanyu.E16/public"
+        Alias "/secret" "/var/www/parikesit.abimanyu.E16/secret"
+        Alias "/js" "/var/www/parikesit.abimanyu.E16/public/js"
+
+        ErrorDocument 404 /error/404.html
+        ErrorDocument 403 /error/403.html
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+restart apache dengan command `service apache2 restart`.
+
 ### Hasil
+
+Jalankan `lynx parikesit.abimanyu.E16.com/js` pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/b581d64a-0af0-4d2f-a555-43a9c028f084)
 
 ## Soal 17
 
 > Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
 
 ### Solusi
+
+Pada node Abimanyu, buat file abimanyu.E16.com.conf pada direktori /etc/apache2/sites-available/ yang berisi:
+```
+<VirtualHost *:80>
+        ServerAdmin webmaster@localhost
+        DocumentRoot /var/www/abimanyu.E16
+        ServerName abimanyu.E16.com
+        ServerAlias www.abimanyu.E16.com
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+```
+
+buat folder /var/www/abimanyu.E16 yang nantinya akan digunakan untuk menampilkan halaman website.
+
+jalankan `a2ensite abimanyu.E16.com` untuk meng-enable konfigurasi website abimanyu, serta restart apache dengan command `service apache2 restart`.
+
+Download [file zip berikut](https://drive.google.com/file/d/1a4V23hwK9S7hQEDEcv9FL14UkkrHc-Zc/view) dan lakukan unzip, kemudian pindahkan semua file di dalam abimanyu.yyy.com ke direktori /var/www/abimanyu.E16.
 
 ### Hasil
 
