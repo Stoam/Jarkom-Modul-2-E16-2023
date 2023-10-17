@@ -16,43 +16,39 @@
   - [Topologi](#topologi)
   - [Configuration](#configuration)
   - [Directory List](#directory-list)
+- [Default menggunakan Round Robin](#default-menggunakan-round-robin)
+- [Default menggunakan Round Robin](#default-menggunakan-round-robin-1)
     - [Hasil](#hasil)
-  - [Soal 9](#soal-9)
+  - [Soal 11](#soal-11)
     - [Solusi](#solusi)
     - [Hasil](#hasil-1)
-  - [Soal 10](#soal-10)
+  - [Soal 12](#soal-12)
     - [Solusi](#solusi-1)
     - [Hasil](#hasil-2)
-  - [Soal 11](#soal-11)
+  - [Soal 13](#soal-13)
     - [Solusi](#solusi-2)
     - [Hasil](#hasil-3)
-  - [Soal 12](#soal-12)
+  - [Soal 14](#soal-14)
     - [Solusi](#solusi-3)
     - [Hasil](#hasil-4)
-  - [Soal 13](#soal-13)
+  - [Soal 15](#soal-15)
     - [Solusi](#solusi-4)
     - [Hasil](#hasil-5)
-  - [Soal 14](#soal-14)
+  - [Soal 16](#soal-16)
     - [Solusi](#solusi-5)
     - [Hasil](#hasil-6)
-  - [Soal 15](#soal-15)
+  - [Soal 17](#soal-17)
     - [Solusi](#solusi-6)
     - [Hasil](#hasil-7)
-  - [Soal 16](#soal-16)
+  - [Soal 18](#soal-18)
     - [Solusi](#solusi-7)
     - [Hasil](#hasil-8)
-  - [Soal 17](#soal-17)
+  - [Soal 19](#soal-19)
     - [Solusi](#solusi-8)
     - [Hasil](#hasil-9)
-  - [Soal 18](#soal-18)
+  - [Soal 20](#soal-20)
     - [Solusi](#solusi-9)
     - [Hasil](#hasil-10)
-  - [Soal 19](#soal-19)
-    - [Solusi](#solusi-10)
-    - [Hasil](#hasil-11)
-  - [Soal 20](#soal-20)
-    - [Solusi](#solusi-11)
-    - [Hasil](#hasil-12)
 
 ## Topologi
 
@@ -707,6 +703,61 @@ jalankan `service bind9 restart`.
 
 ### Solusi
 
+Pada node Arjuna, hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti ini:
+```
+# Default menggunakan Round Robin
+upstream myweb  {
+        server 192.214.3.4; # IP Abimanyu
+        server 192.214.3.5; # IP Prabukusuma
+        server 192.214.3.6; # IP Wisanggeni
+}
+
+server {
+        listen 80;
+        server_name arjuna.E16.com;
+
+        location / {
+        proxy_pass http://myweb;
+        }
+}
+```
+
+jalankan symlink dengan command `ln -s /etc/nginx/sites-available/arjuna /etc/nginx/sites-enabled`, kemudian restart nginx dengan command `service nginx restart`.
+
+Pada setiap web server (Abimanyu, Prabukusuma, dan Wisanggeni), hapus file /etc/nginx/sites-available/default, kemudian buat file arjuna di direktori yang sama. Edit file arjuna menjadi seperti ini:
+```
+server {
+
+        listen 80;
+
+        root /var/www/arjuna;
+
+        index index.php index.html index.htm;
+        server_name _;
+
+        location / {
+                        try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # pass PHP scripts to FastCGI server
+        location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+}
+
+location ~ /\.ht {
+                        deny all;
+        }
+
+        error_log /var/log/nginx/arjuna_error.log;
+        access_log /var/log/nginx/arjuna_access.log;
+}
+```
+
+Pada setiap web server, jalankan symlink dengan command `ln -s /etc/nginx/sites-available/arjuna /etc/nginx/sites-enabled`, kemudian jalankan 3 command berikut: `service nginx restart`, `service php7.0-fpm start`, `service php7.0-fpm restart`.
+
+Pada setiap web server, buat folder /var/www/arjuna yang nantinya akan digunakan untuk menampilkan halaman website arjuna.E16.com.
+
 ### Hasil
 
 ## Soal 10
@@ -718,7 +769,72 @@ jalankan `service bind9 restart`.
 
 ### Solusi
 
+Pada node Arjuna, edit file /etc/nginx/sites-available/arjuna menjadi seperti ini:
+```
+# Default menggunakan Round Robin
+upstream myweb  {
+        server 192.214.3.4:8002; # IP Abimanyu
+        server 192.214.3.5:8001; # IP Prabukusuma
+        server 192.214.3.6:8003; # IP Wisanggeni
+}
+
+server {
+        listen 80;
+        server_name arjuna.E16.com;
+
+        location / {
+        proxy_pass http://myweb;
+        }
+}
+```
+
+Jalankan `service nginx restart`.
+
+Pada setiap web server, edit file /etc/nginx/sites-available/arjuna menjadi seperti ini:
+```
+server {
+
+        listen 800X;
+
+        root /var/www/arjuna;
+
+        index index.php index.html index.htm;
+        server_name _;
+
+        location / {
+                        try_files $uri $uri/ /index.php?$query_string;
+        }
+
+        # pass PHP scripts to FastCGI server
+        location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
+}
+
+location ~ /\.ht {
+                        deny all;
+        }
+
+        error_log /var/log/nginx/arjuna_error.log;
+        access_log /var/log/nginx/arjuna_access.log;
+}
+```
+
+Ganti 800X menjadi 8002 (Abimanyu), 8001 (Prabukusuma), dan 8003 (Wisanggeni).
+
+Jalankan `service nginx restart` dan `service php7.0-fpm restart`.
+
+Download [file zip berikut](https://drive.google.com/file/d/17tAM_XDKYWDvF-JJix1x7txvTBEax7vX/view) dan lakukan unzip, kemudian pindahkan semua isi file arjuna.yyy.com ke dalam /var/www/arjuna.
+
 ### Hasil
+
+Berikut adalah hasil dari menjalankan `lynx www.arjuna.E16.com` sebanyak 3 kali pada client.
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/2e2d7500-0660-4f00-aaa6-836ae91434ab)
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/6da486a8-5a13-42b7-811c-d16456b5b845)
+
+![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/893b03ea-e215-4052-a6a3-b7f3895b44d7)
 
 ## Soal 11
 
