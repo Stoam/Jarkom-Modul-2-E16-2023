@@ -77,6 +77,7 @@
   - [Soal 20](#soal-20)
       - [Solusi](#solusi-19)
       - [Hasil](#hasil-19)
+  - [Kendala](#kendala)
 
 ## Topologi
 
@@ -1254,3 +1255,7 @@ Jalankan `lynx parikesit.abimanyu.E16.com/public` > buka folder images/ > buka s
 ![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/8eddbcbd-53bf-4e6a-b762-5954708af5ad)
 
 ![image](https://github.com/Stoam/Jarkom-Modul-2-E16-2023/assets/58579201/ec023281-f9c7-4ffe-8b5e-165d869d1add)
+
+## Kendala
+
+Ketika praktikum, terjadi packet loss ketika mencoba ping baratayuda dari client. Hal tersebut terjadi karena pada named.conf.options di DNS Master, dilakukan forward ke IP internet, sehingga dari client ketika mencoba ping baratayuda tidak langsung diarahkan ke IP baratayuda.
